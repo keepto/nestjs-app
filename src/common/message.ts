@@ -1,8 +1,8 @@
 export var MESSAGE = {
-  ERROR: (m, info, data = [] || {}) => {
-    return { code: -100, message: m, errorInfo: info, data: data };
+  ERROR: (message, errorInfo, data = [] || {}) => {
+    return { code: -100, message, errorInfo, data };
   },
-  SUCCESS: (m, data = [] || {}) => {
-    return { code: 0, message: m, data: data };
+  SUCCESS: (message, data = [] || {}) => {
+    return { code: 0, message, data };
   },
 };

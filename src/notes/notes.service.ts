@@ -2,6 +2,7 @@ import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Notes } from './notes.entity';
+import { Imgs } from './imgs.entity';
 import { MESSAGE } from '../common/message';
 
 @Injectable()
@@ -9,12 +10,15 @@ export class NotesService {
     constructor(
         @InjectRepository(Notes)
         private readonly notesRepository: Repository<Notes>,
+        // private readonly imgsRepository: Repository<Imgs>,
       ) {}
 
       // 查找某个用户的所有笔记
       async findAll(query) {
         const data = await this.notesRepository.find(query)
-        return MESSAGE.SUCCESS('', data);
+        // const url = await this.imgsRepository.find({})
+        // console.log(url)
+        return MESSAGE.SUCCESS('成功', data);
       }
 
       // 添加笔记

@@ -2,9 +2,14 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-// import { NotesController } from './notes/notes.controller';
+// import { ServeStaticModule } from '@nestjs/serve-static';
+// import { join } from 'path';
+import { NotesController } from './notes/notes.controller';
 import { NotesService } from './notes/notes.service';
 import { NotesModule } from './notes/notes.module';
+import { UploadController } from './upload/upload.controller';
+import { UploadService } from './upload/upload.service';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -16,10 +21,15 @@ import { NotesModule } from './notes/notes.module';
       password: '12345678',
       database: 'notes',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: false
+      synchronize: true,
+      logging: false // 是否打印typeorm日志
     }),
-    NotesModule],
-  controllers: [AppController],
-  providers: [AppService, NotesService],
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', 'public'),
+    // }),
+    NotesModule,
+    UploadModule],
+  controllers: [AppController, NotesController, UploadController],
+  providers: [AppService, NotesService, UploadService],
 })
 export class AppModule {}
