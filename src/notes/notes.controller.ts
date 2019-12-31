@@ -1,5 +1,4 @@
-import { Controller, Get, Post, Query, Body, UseInterceptors, UploadedFile, UploadedFiles  } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express'
+import { Controller, Get, Post, Query, Body } from '@nestjs/common';
 import { NotesService } from './notes.service'
 
 @Controller('notes')

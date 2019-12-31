@@ -5,11 +5,11 @@ export class Imgs {
   @PrimaryGeneratedColumn()
   id: number;
 
-  // 笔记id
-  @ManyToOne(type => Notes, note => note.noteUrl)
-  noteId: Notes;
-
   // 图片地址
   @Column()
   url: string;
+
+  // 笔记id
+  @ManyToOne(type => Notes, note => note.imgs)
+  note: Notes;
 }

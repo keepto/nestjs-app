@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
 import { Imgs } from './imgs.entity'
+import { Bookrack } from '../bookrack/bookrack.entity'
 @Entity()
 export class Notes {
   @PrimaryGeneratedColumn()
@@ -10,27 +11,25 @@ export class Notes {
   userId: string;
 
   // 书名
-  @Column()
-  bookName: string;
-
-  // 封面id
-  @Column()
-  coverUrl: string;
-
-  // 作者
-  @Column()
-  writer: string;
-
-  // 上传图片
-  @OneToMany(type => Imgs, img => img.noteId)
-  @JoinColumn()
-  noteUrl?: Imgs[];
+  @ManyToOne(type => Bookrack, bookrack => bookrack.note)
+  bookrack: Bookrack;
 
   // 笔记内容
-  @Column()
+  @Column({
+    length: 300,
+    nullable: true
+  })
   noteTxt: string;
 
   // 修改日期
-  @Column()
+  @Column({
+    nullable: true
+  })
   updateTime: Date;
+
+  // 上传图片
+  @OneToMany(type => Imgs, img => img.note, {
+    cascade:true
+  })
+  imgs: Imgs[];
 }

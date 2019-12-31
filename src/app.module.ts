@@ -10,6 +10,9 @@ import { NotesModule } from './notes/notes.module';
 import { UploadController } from './upload/upload.controller';
 import { UploadService } from './upload/upload.service';
 import { UploadModule } from './upload/upload.module';
+import { BookrackController } from './bookrack/bookrack.controller';
+import { BookrackService } from './bookrack/bookrack.service';
+import { BookrackModule } from './bookrack/bookrack.module';
 
 @Module({
   imports: [
@@ -21,15 +24,16 @@ import { UploadModule } from './upload/upload.module';
       password: '12345678',
       database: 'notes',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
+      synchronize: true, // 是否自动根据实体更新数据表
       logging: false // 是否打印typeorm日志
     }),
     // ServeStaticModule.forRoot({
     //   rootPath: join(__dirname, '..', 'public'),
     // }),
     NotesModule,
-    UploadModule],
-  controllers: [AppController, NotesController, UploadController],
-  providers: [AppService, NotesService, UploadService],
+    UploadModule,
+    BookrackModule],
+  controllers: [AppController, NotesController, UploadController, BookrackController],
+  providers: [AppService, NotesService, UploadService, BookrackService],
 })
 export class AppModule {}

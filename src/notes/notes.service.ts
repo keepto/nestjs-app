@@ -1,31 +1,28 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Connection } from 'typeorm';
 import { Notes } from './notes.entity';
-import { Imgs } from './imgs.entity';
 import { MESSAGE } from '../common/message';
 
 @Injectable()
 export class NotesService {
     constructor(
         @InjectRepository(Notes)
-        private readonly notesRepository: Repository<Notes>,
-        // private readonly imgsRepository: Repository<Imgs>,
+        private readonly notesRepository: Repository<Notes>
       ) {}
 
       // 查找某个用户的所有笔记
       async findAll(query) {
-        const data = await this.notesRepository.find(query)
-        // const url = await this.imgsRepository.find({})
-        // console.log(url)
+        console.log('query:',query)
+        const data = await this.notesRepository.find({ where: query, relations: ["bookrack","imgs"] })
         return MESSAGE.SUCCESS('成功', data);
       }
 
       // 添加笔记
       async addNote(body) {
         try {
-          await this.notesRepository.insert(body);
-          return MESSAGE.SUCCESS('添加成功');
+          const note = await this.notesRepository.save(body);
+          return MESSAGE.SUCCESS('添加成功', note);
         } catch (error) {
           return MESSAGE.ERROR('添加失败', error.message);
         }
