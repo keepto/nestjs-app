@@ -18,6 +18,6 @@ export class Bookrack {
   url: string;
 
   // 笔记id
-  @OneToMany(type => Notes, note => note.bookrack)
+  @OneToMany(type => Notes, note => note.book)
   note: Notes[];
 }

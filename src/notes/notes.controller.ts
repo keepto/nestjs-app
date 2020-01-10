@@ -10,9 +10,15 @@ export class NotesController {
         return this.NotesService.findAll(query);
     }
 
+    @Get('queryById')
+    queryById(@Query() query) {
+        console.log(query)
+        return this.NotesService.queryById(query.id);
+    }
+
     @Post('add')
     addNote(@Body() body) {
-        return this.NotesService.addNote(body);
+        return this.NotesService.editNote(body);
     }
 
     @Post('edit')

@@ -12,7 +12,7 @@ export class Notes {
 
   // 书名
   @ManyToOne(type => Bookrack, bookrack => bookrack.note)
-  bookrack: Bookrack;
+  book: Bookrack;
 
   // 笔记内容
   @Column({

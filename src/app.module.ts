@@ -25,7 +25,7 @@ import { BookrackModule } from './bookrack/bookrack.module';
       database: 'notes',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true, // 是否自动根据实体更新数据表
-      logging: false // 是否打印typeorm日志
+      logging: true // 是否打印typeorm日志
     }),
     // ServeStaticModule.forRoot({
     //   rootPath: join(__dirname, '..', 'public'),

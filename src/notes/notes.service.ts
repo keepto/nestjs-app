@@ -14,30 +14,27 @@ export class NotesService {
       // 查找某个用户的所有笔记
       async findAll(query) {
         console.log('query:',query)
-        const data = await this.notesRepository.find({ where: query, relations: ["bookrack","imgs"] })
+        const data = await this.notesRepository.find({ where: query, relations: ["book", "imgs"] })
         return MESSAGE.SUCCESS('成功', data);
       }
 
-      // 添加笔记
-      async addNote(body) {
-        try {
-          const note = await this.notesRepository.save(body);
-          return MESSAGE.SUCCESS('添加成功', note);
-        } catch (error) {
-          return MESSAGE.ERROR('添加失败', error.message);
-        }
+       // 查询详情
+       async queryById(id) {
+        console.log('id:',id)
+        const data = await this.notesRepository.findOne(id, {relations: ["book", "imgs"]})
+        return MESSAGE.SUCCESS('成功', data);
       }
 
-      // 修改笔记
+      // 新增/编辑笔记
       async editNote(body) {
-        if (this.notesRepository.findOneOrFail(body.id)) {
-          return MESSAGE.ERROR('修改失败', '不存在该条记录');
-        }
-        if (!body.id) {
-          return MESSAGE.ERROR('修改失败', '缺少id');
-        }
+        // if (this.notesRepository.findOneOrFail(body.id)) {
+        //   return MESSAGE.ERROR('修改失败', '不存在该条记录');
+        // }
+        // if (!body.id) {
+        //   return MESSAGE.ERROR('修改失败', '缺少id');
+        // }
         try {
-          await this.notesRepository.update(body.id, body);
+          await this.notesRepository.save(body);
           return MESSAGE.SUCCESS('修改成功');
         } catch (error) {
           return MESSAGE.ERROR('修改失败', error.message);
