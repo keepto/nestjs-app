@@ -29,7 +29,7 @@ export class Notes {
 
   // 上传图片
   @OneToMany(type => Imgs, img => img.note, {
-    cascade:true
+    cascade: true // 新增或更新note记录时，自动更新imgs表
   })
   imgs: Imgs[];
 }

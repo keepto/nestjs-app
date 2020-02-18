@@ -10,6 +10,9 @@ export class Imgs {
   url: string;
 
   // 笔记id
-  @ManyToOne(type => Notes, note => note.imgs)
+  @ManyToOne(type => Notes, note => note.imgs,
+    {
+      onDelete: 'CASCADE' // 删除note记录时，自动删除关联的imgs记录
+    })
   note: Notes;
 }

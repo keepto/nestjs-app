@@ -44,7 +44,7 @@ export class NotesService {
       // 删除笔记
       async deleteNote(body) {
         try {
-          await this.notesRepository.delete(body.id);
+          await this.notesRepository.remove(body);
           return MESSAGE.SUCCESS('删除成功');
         } catch (error) {
           return MESSAGE.ERROR('删除失败', error.message);
